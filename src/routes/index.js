@@ -1,11 +1,11 @@
 const {Router} = require ("express")
 
 const userRoutes = require("./users.routes")
-const taskRoutes = require("./tasks.routes")
+const bookRoutes = require("./books.routes")
 
 const routes = Router()
 
-routes.use("/", taskRoutes)
+routes.use("/", bookRoutes)
 routes.use("/", userRoutes)
 
 module.exports = routes

@@ -7,7 +7,7 @@ development: {
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'taskmanager_knex'
+  database: 'livraria_senac'
   },
   migrations: {
     directory: path.resolve(
