@@ -15,3 +15,5 @@
 ## Feito auterações no constroller e routes
 
 ## Criaçao de mais uma migration, e modificações nas routes 
+
+## Feito auterações no Controller
