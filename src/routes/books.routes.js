@@ -1,13 +1,13 @@
 const {Router} = require ("express")
 const BookController = require("../controllers/BooksController")
-const checkBookExists = require("../controllers/BooksController")
-const checkUserExists = require("..//middlewares/checkUserExists")
+const checkBookExists = require("../middlewares/checkUserExists")
+
 
 
 const bookRoutes = Router()
 const bookController = new BookController()
 
-bookRoutes.post("/books/:user_id", checkUserExists, bookController.createBook) // rota para criar a tarefa
+bookRoutes.post("/books", bookController.createBook) // rota para criar a tarefa
 bookRoutes.get("/books", bookController.listBook) // rota para listar a tarefa
 bookRoutes.get("/books/:id", checkBookExists, bookController.listBookById) // rota utilizada para adicionar o id(para quando quiser buscar um id expecifico)
 bookRoutes.put("/books/:id", checkBookExists, bookController.updateBook) // rota para atualizar dados

@@ -1,4 +1,4 @@
-const Knex = require("..//database/knex")
+const knex = require("..//database/knex")
 
 class LoansController {
     async borrowBooks(req,res) {
@@ -35,7 +35,7 @@ class LoansController {
 
         const {user_id} = req.params
 
-        const [total] = await knex("loans").where({user_id}).const({books: "book_id"})
+        const [total] = await knex("loans").where({user_id}).count({book_id: "book_id"})
 
         return res.status(200).json(total)
     
@@ -52,20 +52,24 @@ class LoansController {
             return res.status(400).json("Livro não encontrado")
         }
 
+        if(book.available === 1) {
+            return res.status(400).json("Este livro já foi devolvido")
+        }
+
         if(!user) {
             return res.status(400).json("Usuário não encontrado!")
         }
 
-        const [loans] = await knex("loans").where({user_id})
+        const loans = await knex("loans").where({user_id})
 
-        const bookId = loan.book_id
+        const findBook = loans.find(loan => loan.book_id == book_id)
 
-        if(bookId === book_id) {
-            await knex("books").where({id: book_id}).upadate({available: true})
-
+        if(findBook.book_id == book_id) {
+            await knex("books").update({available: true}).where({id: book_id})
             return res.status(200).json("Livro devolvido com sucesso!")
-        }
-        return res.status(200).json("Operação não realizada!")
+        };
+        
+        return res.status(400).json("Operação não realizada!")
 
     }
 }

@@ -13,3 +13,5 @@
 ## Modificação no controllers, mifflawares, database e routes
 
 ## Feito auterações no constroller e routes
+
+## Criaçao de mais uma migration, e modificações nas routes 

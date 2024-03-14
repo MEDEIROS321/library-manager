@@ -4,39 +4,40 @@ const knex = require("..//database/knex")
 class BookController {
 
     async createBook(req, res) {
-        const {user_id} = req.params
-        const { title, description } = req.body
+    
+        const { title, author, pages, category } = req.body
 
         const book = {
+            title,
             author,
             pages,
-            description,
-            isAvailable: false,
-            id_book
+            category,
+            available: true,
+           
         }
 
-        await knex ("books").insert({title:task.title, description:task.description,isCompleted:task.isCompleted,user_id:task.user_id})
+        await knex ("books").insert({title:book.title, author:book.author, pages:book.pages, category:book.category,available:book.available})
 
         return res.status(201).json("livro criado com sucesso!")
     }
 
 
-    async listTask(req, res) {
-        const [books] = await  knex("books")
+    async listBook(req, res) {
+        const books = await  knex("books")
          return res.status(200).json(books)
     }
 
     async listBookById(req, res) {
         const {id} = req.params
-        const book = await  knex("books").where({id})
+        const books = await  knex("books").where({id})
        return res.status(200).json(books)
     }
 
     async updateBook(req, res) {
         const {id} = req.params
-        const {author, description} = req.body
+        const {author, title} = req.body
 
-        await knex("books").where({id}).update({author, description})
+        await knex("books").where({id}).update({author, title})
         return res.status(200).json("livro atualizado com sucesso!")
 
      }
@@ -44,7 +45,7 @@ class BookController {
     async updateBookStatus(req, res) {
         const {id} = req.params
 
-         await knex("books").where({id}).update({isAvailable: true})
+         await knex("books").where({id}).update({available: true})
        return  res.status(200).json("status alterado com secesso!")
     }
 
